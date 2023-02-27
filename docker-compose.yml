@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  db:
+    image: mariadb:10.8.3
+    # Uncomment below when on Mac M1
+    # platform: linux/arm64/v8
+    # platform : windows/amd64
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      # - 3306:3306
+      - '3306:3306'
+    # volumes:
+    #   - mysql:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  # php:
+  #   links:
+  #     - db
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 #IMAP port, for sending email
+      - 8025:8025 #localhost 8025 would be the web UI to Mailhog
